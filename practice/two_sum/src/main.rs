@@ -3,17 +3,19 @@ Author: Dylan Nandlall
 Two Sum Problem
 12/16/22
  */
+
+use std::collections::HashMap;
 struct Solution {}
 
 impl Solution {
     pub fn two_sum(nums: Vec<i32>, target: i32) -> Vec<i32> {
+        let mut map: HashMap<i32, i32> = HashMap::new();
+
         for i in 0..nums.len() {
-            let difference = target - nums[i];
-            for j in (i+1)..nums.len() {
-                if nums[j] == difference {
-                    return vec![i as i32, j as i32];
-                }
+            if map.contains_key(&(target - nums[i])) {
+                return vec![i as i32, *map.get(&(target - nums[i])).unwrap()]
             }
+            map.insert(nums[i], i as i32);
         }
         return vec![];
     }
