@@ -8,14 +8,19 @@ struct Solution {}
 
 impl Solution {
     pub fn remove_element(nums: &mut Vec<i32>, val: i32) -> i32 {
-        let mut count = nums.len() as i32;
-        nums.retain(|x| *x != val);
-        let difference = count - nums.len() as i32;
+        let mut count = nums.len();
+        let mut i = 0;
 
-        for i in 0..difference as i32 {
-            nums.push(-1);
+        while i < count {
+            if nums[i] == val {
+                nums.remove(i);
+                nums.push(-1);
+                count -= 1;
+                continue;
+            } 
+            i += 1;
         }
-        return count-difference;
+        return count as i32;
     }
 }
 fn main() {
